@@ -35,6 +35,7 @@ namespace TrabalhoFinal.Controllers
         }
 
         [Route("cadastrarAluno")]
+        [HttpPost]
         public IHttpActionResult CadastrarAluno(Aluno model)
         {
             try
