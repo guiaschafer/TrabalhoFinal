@@ -24,7 +24,7 @@ namespace TrabalhoFinal.Controllers
         [HttpGet]
         public IHttpActionResult BuscarAluno()
         {
-            return Ok("UHUL MOTHERFUCKER");
+            return Ok(serviceAluno.BuscarAlunos());
         }
 
         [Route("atualizarAluno")]

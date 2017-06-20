@@ -31,5 +31,41 @@ namespace TrabalhoFinal.Services
               throw new Exception(e.Message);
             }
         }
+
+        public List<Aluno> BuscarAlunos()
+        {
+            var retorno = new List<Aluno>();
+            try
+            {
+                using (SqlConnection sql = new SqlConnection(ConfigurationManager.ConnectionStrings["BD"].ConnectionString))
+                {
+                    sql.Open();
+
+                    SqlCommand comando = new SqlCommand($"select * From Aluno", sql);
+
+                    var reader = comando.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            retorno.Add(new Aluno()
+                            {
+                                Nome = reader["Nome"].ToString(),
+                                Idade = Convert.ToInt32(reader["Idade"].ToString())
+                            });
+                        }
+                    }
+
+                    sql.Close();
+                }
+
+                return retorno;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
