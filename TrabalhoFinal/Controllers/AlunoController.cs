@@ -5,32 +5,47 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using TrabalhoFinal.Models;
+using TrabalhoFinal.Services;
 
 
 namespace TrabalhoFinal.Controllers
 {
- 
+    [RoutePrefix("aluno")]
     public class AlunoController : ApiController
     {
+        private ServiceAluno serviceAluno;
 
-        [Route("aluno/buscar")]
+        public AlunoController()
+        {
+            serviceAluno = new ServiceAluno();
+        }
+
+        [Route("buscar")]
         [HttpGet]
         public IHttpActionResult BuscarAluno()
         {
             return Ok("UHUL MOTHERFUCKER");
         }
 
-        [Route("aluno/atualizarAluno")]
+        [Route("atualizarAluno")]
         [HttpPut]
         public IHttpActionResult AtualizarAluno(EmptyModel model)
         {
             return Ok();
         }
 
-        [Route("aluno/cadastrarAluno")]
-        public IHttpActionResult CadastrarAluno(EmptyModel model)
+        [Route("cadastrarAluno")]
+        public IHttpActionResult CadastrarAluno(Aluno model)
         {
-            return Ok();
+            try
+            {
+                serviceAluno.CadastrarAluno(model);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
